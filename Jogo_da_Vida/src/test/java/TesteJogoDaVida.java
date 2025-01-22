@@ -52,7 +52,7 @@ public class TesteJogoDaVida {
         assertNull(tabuleiro, "Tabuleiro não deve ser criado com dimensões inválidas.");
     }
 
-    /*@Test
+    @Test
     public void testCelulaMorrePorSuperpopulacao() {
         Tabuleiro tabuleiro = new Tabuleiro(3, 3);
         int[][] gradeInicial = {
@@ -72,6 +72,6 @@ public class TesteJogoDaVida {
         // Compara a grade esperada com a gerada pelo método
         assertArrayEquals(gradeEsperada, tabuleiro.getGrade(),
                 "Célula deveria morrer por superpopulação.");
-    }*/
+    }
 
 }
