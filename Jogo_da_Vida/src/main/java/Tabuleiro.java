@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class Tabuleiro {
@@ -63,43 +64,41 @@ public class Tabuleiro {
             for (int j = 0; j < colunas; j++) {
                 int vizinhosVivos = contarVizinhosVivos(i, j);
 
-                // Regras do Jogo da Vida
                 if (grade[i][j] == 1) { // Célula viva
-                    if (vizinhosVivos < 2 || vizinhosVivos > 3) {
-                        novaGrade[i][j] = 0; // Morre
-                    } else {
+                    if (vizinhosVivos == 2 || vizinhosVivos == 3) {
                         novaGrade[i][j] = 1; // Permanece viva
+                    } else {
+                        novaGrade[i][j] = 0; // Morre
                     }
                 } else { // Célula morta
                     if (vizinhosVivos == 3) {
-                        novaGrade[i][j] = 1; // Torna-se viva
+                        novaGrade[i][j] = 1; // Revive
+                    } else {
+                        novaGrade[i][j] = 0; // Permanece morta
                     }
                 }
             }
         }
 
-        // Atualiza a grade
         grade = novaGrade;
     }
-    private int contarVizinhosVivos(int x, int y) {
-        int count = 0;
+
+    private int contarVizinhosVivos(int linha, int coluna) {
+        int vizinhosVivos = 0;
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0) {
-                    continue; // Ignora a célula atual
-                }
+                if (i == 0 && j == 0) continue; // Ignora a célula atual
 
-                int nx = x + i;
-                int ny = y + j;
+                int novaLinha = linha + i;
+                int novaColuna = coluna + j;
 
                 // Verifica se está dentro dos limites do tabuleiro
-                if (nx >= 0 && nx < linhas && ny >= 0 && ny < colunas) {
-                    count += grade[nx][ny];
+                if (novaLinha >= 0 && novaLinha < linhas && novaColuna >= 0 && novaColuna < colunas) {
+                    vizinhosVivos += grade[novaLinha][novaColuna];
                 }
             }
         }
-
-        return count;
+        return vizinhosVivos;
     }
 }
